@@ -1,10 +1,8 @@
-package com.example.tristan.myapplication
+package com.example.nadinadin.myapplication
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.GridView
 
 class MainActivity : AppCompatActivity() {

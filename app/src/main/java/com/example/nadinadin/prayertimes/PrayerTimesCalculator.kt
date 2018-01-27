@@ -1,4 +1,4 @@
-package com.example.tristan.prayertimes
+package com.example.nadinadin.prayertimes
 
 import java.util.*
 

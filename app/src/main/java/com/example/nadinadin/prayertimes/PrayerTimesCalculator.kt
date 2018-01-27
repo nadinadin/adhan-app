@@ -2,7 +2,14 @@ package com.example.nadinadin.prayertimes
 
 import java.util.*
 
-class Times<A> (val imsak: A, val fajr: A, val sunrise: A, val dhuhr: A, val asr: A, val sunset: A, val maghrib: A, val isha: A)
+class Times<A> (val imsak: A,
+                val fajr: A,
+                val sunrise: A,
+                val dhuhr: A,
+                val asr: A,
+                val sunset: A,
+                val maghrib: A,
+                val isha: A)
 
 class Settings (val latitude: Double, val longitude: Double, val elevation: Double)
 
@@ -16,7 +23,7 @@ private fun dateWithHHMM(date: Date, hh: Int, mm: Int): Date {
     return out
 }
 
-fun calculaterPrayerTimes(date: Date, settings: Settings): Times<Date> {
+fun calculatePrayerTimes(date: Date, settings: Settings): Times<Date> {
     return Times<Date>(
             imsak = dateWithHHMM(date, 3, 55),
             fajr = dateWithHHMM(date, 4, 0),
@@ -29,14 +36,24 @@ fun calculaterPrayerTimes(date: Date, settings: Settings): Times<Date> {
     )
 }
 
-sealed class Athan<out T> {
-    class Fajr<T>(val date: T): Athan<T>()
-    class Dhuhr<T>(val date: T): Athan<T>()
-    class Asr<T>(val date: T): Athan<T>()
-    class Maghrib<T>(val date: T): Athan<T>()
-    class Isha<T>(val date: T): Athan<T>()
+sealed class Adhan<out T> {
+    class Fajr<T>(val date: T): Adhan<T>()
+    class Dhuhr<T>(val date: T): Adhan<T>()
+    class Asr<T>(val date: T): Adhan<T>()
+    class Maghrib<T>(val date: T): Adhan<T>()
+    class Isha<T>(val date: T): Adhan<T>()
 }
 
-fun getNextAthan(date: Date, times: Times<Date>): Athan<Date> {
-    return Athan.Maghrib(times.maghrib)
+fun getNextAdhan(date: Date, times: Times<Date>): Adhan<Date> {
+    return Adhan.Maghrib(times.maghrib)
+}
+
+fun getAdhanName(adhan: Adhan<Date>): String {
+    return when (adhan) {
+        is Adhan.Fajr -> "Subuh"
+        is Adhan.Dhuhr -> "Lohor"
+        is Adhan.Asr -> "Ashar"
+        is Adhan.Maghrib -> "Maghrib"
+        is Adhan.Isha -> "Isya'"
+    }
 }
